@@ -31,4 +31,47 @@ public class AddCustomerTest {
                         .isDisplayed());
         driver.quit();
     }
+
+    @Test
+    public void addCustomerWithoutName() {
+        BrowserDrivers browserDrivers = new BrowserDrivers();
+        WebDriver driver = browserDrivers.firefoxDriver();
+
+        driver.findElement(By.xpath("//button[text()='Add Customer']")).click();
+
+        driver.findElement(
+                By.id("firstName")).sendKeys("");
+        driver.findElement(
+                By.id("last-name")).sendKeys("Testowy");
+        driver.findElement(
+                By.id("email")).sendKeys("testowy@testowy.com");
+        driver.findElement(
+                By.xpath("//button[text()='Save']")).click();
+        Assert.assertTrue(
+                driver.findElement(
+                                By.xpath("//div[contains(text(),'First name is required.')]"))
+                        .isDisplayed());
+        driver.quit();
+    }
+    @Test
+    public void addCustomerWithoutLastName() {
+        BrowserDrivers browserDrivers = new BrowserDrivers();
+        WebDriver driver = browserDrivers.firefoxDriver();
+
+        driver.findElement(By.xpath("//button[text()='Add Customer']")).click();
+
+        driver.findElement(
+                By.id("firstName")).sendKeys("Test");
+        driver.findElement(
+                By.id("last-name")).sendKeys("");
+        driver.findElement(
+                By.id("email")).sendKeys("testowy@testowy.com");
+        driver.findElement(
+                By.xpath("//button[text()='Save']")).click();
+        Assert.assertTrue(
+                driver.findElement(
+                                By.xpath("//div[contains(text(),'Last name is required.')]"))
+                        .isDisplayed());
+        driver.quit();
+    }
 }
